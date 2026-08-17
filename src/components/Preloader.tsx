@@ -7,8 +7,9 @@ export default function Preloader({ progress, isLoaded }: { progress: number, is
   const [complete, setComplete] = useState(false);
 
   useEffect(() => {
-    if (isLoaded && progress === 160) {
-      setTimeout(() => setComplete(true), 800);
+    if (isLoaded || progress >= 160) {
+      const timer = setTimeout(() => setComplete(true), 400);
+      return () => clearTimeout(timer);
     }
   }, [isLoaded, progress]);
 

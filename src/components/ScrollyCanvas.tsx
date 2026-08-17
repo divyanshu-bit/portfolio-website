@@ -13,9 +13,18 @@ export default function ScrollyCanvas() {
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [loadProgress, setLoadProgress] = useState(0);
 
-  // Preload images
+  // Preload images with network safety fallback
   useEffect(() => {
     let isMounted = true;
+
+    // 3.5s safety fallback: Ensure preloader unlocks gracefully on live cloud networks
+    const safetyTimer = setTimeout(() => {
+      if (isMounted) {
+        setLoadProgress(FRAME_COUNT);
+        setImagesLoaded(true);
+      }
+    }, 3500);
+
     const preloadImages = async () => {
       const loadedImages: HTMLImageElement[] = [];
       let countTracker = 0;
