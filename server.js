@@ -44,10 +44,11 @@ app.prepare().then(() => {
     });
   });
 
-  server.listen(3000, (err) => {
+  const port = process.env.PORT || 3000;
+  server.listen(port, (err) => {
     if (err) throw err;
     console.log("");
-    console.log("🟢 Unified Web/Socket Pipeline initialized on http://localhost:3000");
+    console.log(`🟢 Unified Web/Socket Pipeline initialized on port ${port}`);
     console.log("");
   });
 });
